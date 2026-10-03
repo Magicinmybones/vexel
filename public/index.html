@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#01061a">
+<title>Vexel — Your next customer starts with a hello.</title>
+<style>
+/* Google Sans (embedded, latin subset) */
+@font-face{font-family:"Google Sans";font-style:normal;font-weight:400;font-display:block;src:url(assets/google-sans-400.woff2) format("woff2")}
+@font-face{font-family:"Google Sans";font-style:normal;font-weight:500;font-display:block;src:url(assets/google-sans-500.woff2) format("woff2")}
+
+/*
+  Scale system
+  ------------
+  Every measurement below is the value taken from the 1280×800 reference,
+  multiplied by --u. At 1280×800 --u is exactly 1px.
+    • landscape / desktop: --u = min(vh/800, vw/1280)  → exact proportional replica
+    • phones / narrow:     --u grows to vw/640 (capped at .75px) so the headline stays legible
+  Small text gets pixel floors so it never drops below a readable size.
+*/
+:root{
+  --u: min(calc(100vh / 800), max(calc(100vw / 1280), min(calc(100vw / 640), .75px)));
+  --ink:#ffffff;
+  --nav:rgba(238,242,255,.9);
+  --sub:rgba(226,233,255,.74);
+  --link:rgba(212,236,255,.77);
+  --rule:rgba(255,255,255,.19);
+  --btn:#ffffff;
+  --btn-ink:#0a0a0a;
+  /* top-edge colour of the artwork, sampled left → right */
+  --sky:linear-gradient(90deg,#00061a 0%,#01071b 22%,#01071a 45%,#010718 62%,#010614 80%,#020511 100%);
+  --font:"Google Sans","Product Sans",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@supports (height:100dvh){
+  :root{--u: min(calc(100dvh / 800), max(calc(100vw / 1280), min(calc(100vw / 640), .75px)))}
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;height:100%}
+html{background:#01061a;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--sky),#01061a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:geometricPrecision;
+  font-kerning:normal;
+  overflow-x:hidden;
+}
+a{color:inherit}
+
+/* ---------- page frame: always exactly one screen, no gaps top or bottom ---------- */
+.page{
+  position:relative;
+  height:100vh;
+  height:100dvh;               /* exactly one screen … */
+  min-height:min-content;      /* … unless the content genuinely needs more */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  isolation:isolate;
+  overflow:hidden;
+}
+
+/* ---------- header ---------- */
+.masthead{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;align-items:center;
+  padding-top:calc(env(safe-area-inset-top,0px) + 40.5 * var(--u));
+  flex:none;
+}
+.brand{display:block;line-height:0;border-radius:2px;transform:translateX(calc(-.5 * var(--u)))}
+.brand svg{display:block;height:max(calc(23.5 * var(--u)),17px);width:auto;fill:#fff}
+.rule{
+  width:max(calc(284 * var(--u)),252px);
+  height:1px;
+  margin-top:calc(24 * var(--u));
+  background:var(--rule);
+}
+.nav{
+  width:max(calc(284 * var(--u)),252px);
+  display:flex;justify-content:space-between;
+  margin:calc(17.4 * var(--u)) 0 0;padding:0 calc(8.9 * var(--u));
+  list-style:none;
+}
+.nav a{
+  display:block;
+  font-size:max(calc(15 * var(--u)),13px);
+  line-height:1;
+  letter-spacing:-.033em;
+  color:var(--nav);
+  text-decoration:none;
+  border-radius:3px;
+  transition:color .2s ease;
+}
+.nav a:hover{color:#fff}
+
+/* ---------- hero copy ---------- */
+.gap{flex:82.98 1 0;min-height:calc(24 * var(--u))}
+.hero{
+  position:relative;z-index:2;
+  flex:none;
+  display:flex;flex-direction:column;align-items:center;
+  text-align:center;
+  padding:0 20px;
+}
+.hero h1{
+  margin:0;
+  font-weight:400;
+  font-size:max(calc(68 * var(--u)),34px);
+  line-height:.9559;               /* 65px @ 68px */
+  letter-spacing:-.0279em;         /* -1.9px @ 68px */
+  color:var(--ink);
+  white-space:nowrap;
+}
+.hero h1 span{display:block}
+.hero h1 span+span{letter-spacing:-.0294em;transform:translateX(calc(2.6 * var(--u)))}
+.lede{
+  margin:calc(18.98 * var(--u)) 0 0;
+  font-size:max(calc(21 * var(--u)),15px);
+  line-height:1;
+  letter-spacing:-.005em;
+  color:var(--sub);
+  text-wrap:balance;
+  max-width:calc(100vw - 40px);
+}
+.cta{
+  margin-top:calc(25.64 * var(--u));
+  display:inline-flex;align-items:center;justify-content:center;
+  width:max(calc(216 * var(--u)),196px);
+  height:max(calc(46 * var(--u)),44px);
+  padding-top:calc(2.2 * var(--u));
+  border-radius:max(calc(4.5 * var(--u)),4px);
+  background:var(--btn);
+  box-shadow:0 0 0 1px rgba(255,255,255,.06),0 1px 2px rgba(0,10,40,.18);
+  color:var(--btn-ink);
+  font-size:max(calc(17 * var(--u)),15px);
+  font-weight:500;
+  line-height:1;
+  letter-spacing:-.0265em;
+  text-decoration:none;
+  transition:background-color .2s ease,box-shadow .2s ease;
+}
+.cta:hover{background:#e8eef7;box-shadow:0 0 0 calc(4 * var(--u)) rgba(120,200,255,.12)}
+.discover{
+  position:relative;
+  margin-top:calc(20.55 * var(--u));
+  display:inline-flex;align-items:flex-start;
+  font-size:max(calc(14.8 * var(--u)),13px);
+  line-height:1;
+  letter-spacing:-.051em;
+  color:var(--link);
+  text-decoration:none;
+  border-radius:3px;
+}
+.discover .label{position:relative;display:block}
+/* partial, fading underline seen in the reference under "Disco…" — grows to full width on hover */
+.discover .label::after{
+  content:"";position:absolute;
+  left:.07em;top:.83em;
+  width:2.55em;height:max(calc(1.5 * var(--u)),1px);
+  background:linear-gradient(90deg,rgba(255,255,255,.46),rgba(255,255,255,.30));
+  transition:width .35s cubic-bezier(.2,.7,.2,1);
+}
+.discover:hover .label::after{width:calc(100% - .07em)}
+.discover svg{
+  display:block;
+  width:.68em;height:.85em;
+  margin-left:.34em;
+  margin-top:.016em;
+  overflow:visible;
+  transition:transform .3s ease;
+}
+.discover:hover svg{transform:translateY(.12em)}
+
+/* ---------- artwork zone: fills everything below the copy, edge to edge ---------- */
+.field{
+  position:relative;z-index:1;
+  align-self:stretch;
+  flex:318.68 1 0;
+  min-height:calc(160 * var(--u));
+  container-type:size;
+}
+/* gap and artwork share the free height in the reference ratio 82.98 : 318.68 → exact at 1280×800 */
+.field img{
+  position:absolute;
+  left:50%;
+  /* the artwork's horizon (row 490 of 971) always sits 36.4u above the bottom of the copy;
+     its height is the larger of "fit the width" and "reach the bottom edge" */
+  --h: max(calc(60vw), calc(105vh));
+  height:var(--h);
+  width:auto;max-width:none;
+  top:calc(-36.4 * var(--u) - .50463 * var(--h));
+  transform:translateX(-50%);
+  user-select:none;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 4%);
+          mask-image:linear-gradient(180deg,transparent 0,#000 4%);
+}
+@supports (width:1cqw){
+  .field img{--h: max(calc(100cqw * 971 / 1619), calc((100cqh + 36.4 * var(--u)) / .49537 + 1px))}
+}
+
+/* ---------- entrance: pre-roll states (applied only while JS runs the intro; no JS → no hiding) ---------- */
+.intro .brand,.intro .nav li,.intro .lede,.intro .cta,.intro .discover{opacity:0}
+.intro .rule{transform:scaleX(0)}
+.intro .hero h1 .l{clip-path:inset(-30% -8% 0 -8%)}   /* mask: open above & sideways, closed at each line's baseline box */
+.intro .hero h1 .li{transform:translateY(104%)}
+
+/* ---------- a11y ---------- */
+:focus{outline:none}
+.nav a:focus-visible,.discover:focus-visible,.brand:focus-visible{outline:2px solid #7fd4ff;outline-offset:4px}
+.cta:focus-visible{outline:2px solid #7fd4ff;outline-offset:3px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
+
+/* ==========================================================================
+   TABLET ARCHITECTURE  (600px – 1099.98px wide, ≥ 541px tall)
+   --------------------------------------------------------------------------
+   Breakpoint is content-derived, not device-derived: above 1100px the desktop
+   composition scales down cleanly (u ≥ .86). Below it, nav + link text fall
+   under 13px and lock to their minimums while the headline keeps shrinking,
+   and on tall screens the artwork overtakes the headline as the focal point.
+   Desktop rules above are untouched; this block only re-tunes two things:
+     1. scale model — hold u at the breakpoint value (.86, continuous with
+        desktop) and let tall tablets grow it back toward 1, never above;
+     2. vertical balance — cap the artwork at 48% of the height so the copy
+        settles at the optical centre and the headline stays dominant.
+   Navigation keeps its desktop form: three short links occupy < 50% of the
+   narrowest tablet width, so no burger is needed.
+   ========================================================================== */
+@media (min-width:600px) and (max-width:1099.98px) and (min-height:541px){
+  :root{--u: min(calc(100vh / 800), 1px, max(calc(100vw / 1280), calc(100vh / 1190), .86px))}
+  @supports (height:100dvh){
+    :root{--u: min(calc(100dvh / 800), 1px, max(calc(100vw / 1280), calc(100dvh / 1190), .86px))}
+  }
+  .field{max-height:48%}
+  /* touch: enlarge hit areas without moving a single pixel of the design */
+  .nav a{padding:14px 8px;margin:-14px -8px}
+  .discover{padding:12px 10px;margin:calc(20.55 * var(--u) - 12px) -10px -12px}
+}
+
+/* short landscape screens (phones on their side): keep the exact proportions, relax the minimums so it stays one screen */
+@media (orientation:landscape) and (max-height:540px){
+  .brand svg{height:max(calc(23.5 * var(--u)),13px)}
+  .rule,.nav{width:max(calc(284 * var(--u)),210px)}
+  .nav a{font-size:max(calc(15 * var(--u)),11px)}
+  .hero h1{font-size:max(calc(68 * var(--u)),28px)}
+  .lede{font-size:max(calc(21 * var(--u)),12px)}
+  .cta{width:max(calc(216 * var(--u)),150px);height:max(calc(46 * var(--u)),34px);font-size:max(calc(17 * var(--u)),12.5px)}
+  .discover{font-size:max(calc(14.8 * var(--u)),11px)}
+  .gap{min-height:calc(14 * var(--u))}
+  .field{min-height:calc(120 * var(--u))}
+}
+/* phones: let the headline wrap rather than overflow on the very narrowest screens */
+@media (max-width:359px){.hero h1{white-space:normal;font-size:30px}}
+
+/* ==========================================================================
+   MOBILE ARCHITECTURE  (portrait, < 600px)
+   --------------------------------------------------------------------------
+   Content-derived: going narrower, the tablet composition keeps working until
+   the 58.5px two-line headline runs out of measure (≈ 522px); the subhead's
+   one-line measure ends at ≈ 430px and then wraps cleanly in two. So this
+   block CONTINUES the tablet system below 600px (no jump at 600) and lets
+   only the parts that actually fail become width-driven:
+     1. same scale model as tablet (u held at .86, small-height aware), using
+        svh so mobile browser chrome can't make the type breathe while scrolling;
+     2. headline fills the measure instead of shrinking with the scale — the
+        authored two-line break ("Your next customer / starts with a hello.")
+        is kept at every width; 8.235 = line-1 width ÷ font-size;
+     3. subhead holds a 16px reading floor and wraps balanced at its sentence;
+     4. artwork capped at 48% of the screen, as on tablet, so the copy sits at
+        the optical centre and the headline stays the focal point;
+     5. masthead keeps its desktop form — three short links leave ≥ 30px
+        between tap areas even at 280px, so no burger is needed;
+     6. touch: invisible hit-area padding, nothing moves visually.
+   ========================================================================== */
+@media (max-width:599.98px) and (orientation:portrait){
+  :root{--u: min(calc(100vh / 800), 1px, max(calc(100vw / 1280), calc(100vh / 1190), .86px))}
+  @supports (height:100svh){
+    :root{--u: min(calc(100svh / 800), 1px, max(calc(100vw / 1280), calc(100svh / 1190), .86px))}
+  }
+  .hero{padding:0 24px}
+  .hero h1{
+    white-space:nowrap;
+    font-size:max(26px, min(calc(68 * var(--u)), calc((100vw - 48px) / 8.235)));
+  }
+  .lede{
+    font-size:max(16px, min(calc(21 * var(--u)), 3.345vw));
+    line-height:1.25;
+    margin-top:calc(18.98 * var(--u) - .125em);   /* keeps the desktop baseline gap with the taller line box */
+    margin-bottom:calc(-.125em);
+    max-width:100%;
+  }
+  /* sentences are joined with no-break spaces in the markup, so the only wrap point is between them;
+     overflow-wrap is a safety net for extreme text zoom */
+  .lede{overflow-wrap:break-word}
+  .rule,.nav{width:min(max(calc(284 * var(--u)),252px), calc(100vw - 32px))}
+  .field{max-height:48%}
+  .nav a{padding:14px 8px;margin:-14px -8px}
+  .discover{padding:12px 10px;margin:calc(20.55 * var(--u) - 12px) -10px -12px}
+}
+/* phones on their side keep the wide (desktop-proportion) composition; only the tap areas grow */
+@media (pointer:coarse) and (orientation:landscape) and (max-height:540px){
+  .nav a{padding:12px 8px;margin:-12px -8px}
+  .discover{padding:10px 10px;margin:calc(20.55 * var(--u) - 10px) -10px -10px}
+}
+</style>
+<script>
+(function(){var d=document.documentElement;
+  if(!('animate' in d)||!window.matchMedia||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  d.classList.add('intro');
+  /* safety net: if the entrance never starts, show the page as authored */
+  window.__introSafety=setTimeout(function(){d.classList.remove('intro')},3500);
+})();
+</script>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <a class="brand" href="#" aria-label="Vexel home">
+      <svg viewBox="588 40.5 103.5 23.5" aria-hidden="true" focusable="false">
+        <path d="M588.6 40.8H594.9L601.4 56.6L606.5 40.8H612.6L604.2 63.5H597.8Z"/>
+        <path d="M612.8 40.8H630.5V45.2H619.2V49.8H628.3V54.4H619.2V58.9H631.5V63.5H612.8Z"/>
+        <path d="M631.3 40.8H637.9L642.5 47.4L646.5 40.8H653.1L646.4 52L653.6 63.5H647.1L642.5 56.4L638.3 63.5H631.4L638.8 52Z"/>
+        <path d="M653.6 40.8H669.6V63.5H653.6V58.9H664.3V54.4H657V49.8H664.3V45.2H653.6Z"/>
+        <path d="M672.4 40.8H677.6V58.9H690.5V63.5H672.4Z"/>
+      </svg>
+    </a>
+    <div class="rule" role="presentation"></div>
+    <nav aria-label="Primary">
+      <ul class="nav">
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#company">Company</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="gap" aria-hidden="true"></div>
+
+  <main class="hero">
+    <h1><span class="l"><span class="li">Your next customer</span></span> <span class="l"><span class="li">starts with a hello.</span></span></h1>
+    <p class="lede">Make the first move. We’ll help with what follows.</p>
+    <a class="cta" href="#contact">Start a conversation</a>
+    <a class="discover" href="#platform"><span class="label">Discover the platform</span>
+      <svg viewBox="0 0 11 12.6" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 .4V12M1 7.5L5.5 12L10 7.5"/></svg>
+    </a>
+  </main>
+
+  <div class="field" aria-hidden="true">
+    <img src="assets/hero-background.jpg" alt="" decoding="async" fetchpriority="high">
+  </div>
+</div>
+<script>
+(function(){
+  var root=document.documentElement;
+  if(!root.classList.contains('intro'))return;           /* reduced motion / no WAAPI: page is already static */
+  if(window.__introRan)return; window.__introRan=true;    /* one page load → one entrance */
+
+  var $=function(s){return document.querySelector(s)}, $$=function(s){return document.querySelectorAll(s)};
+  /* one easing family */
+  var EXPO='cubic-bezier(0.16, 1, 0.3, 1)',      /* reveals: fast start, long expensive settle */
+      QUINT='cubic-bezier(0.22, 1, 0.36, 1)',    /* supporting content */
+      DRAW='cubic-bezier(0.7, 0, 0.2, 1)';       /* the hairline drawing outward */
+  var anims=[];
+  function play(el,frames,delay,dur,ease){ if(!el)return;
+    anims.push(el.animate(frames,{delay:delay,duration:dur,easing:ease,fill:'both'})); }
+
+  function run(){
+    clearTimeout(window.__introSafety);
+    /* distances follow the page's own scale unit, so phones get a proportionally quieter version */
+    var logo=$('.brand svg'), k=Math.max(.65,Math.min(1,(logo?logo.getBoundingClientRect().height:23.5)/23.5));
+    var px=function(v){return (v*k).toFixed(2)+'px'};
+
+    /* MASTHEAD — settles down from the top edge, almost unnoticed */
+    play($('.brand'),[{opacity:0,transform:'translateY('+px(-6)+')'},{opacity:1,transform:'none'}],60,900,QUINT);
+    play($('.rule'),[{transform:'scaleX(0)'},{transform:'scaleX(1)'}],180,1000,DRAW);
+    var li=$$('.nav li');                                  /* centre first, then outward — echoes the line */
+    [[li[1],420],[li[0],490],[li[2],490]].forEach(function(p){
+      play(p[0],[{opacity:0,transform:'translateY('+px(-4)+')'},{opacity:1,transform:'none'}],p[1],700,QUINT);
+    });
+
+    /* HEADLINE — each line rises out of its own mask */
+    var lines=$$('.hero h1 .li');
+    play(lines[0],[{transform:'translateY(104%)'},{transform:'none'}],200,1100,EXPO);
+    play(lines[1],[{transform:'translateY(104%)'},{transform:'none'}],290,1100,EXPO);
+
+    /* SUPPORTING COPY → ACTION → CONTINUATION — short rises, converging on the headline */
+    play($('.lede'),[{opacity:0,transform:'translateY('+px(10)+')'},{opacity:1,transform:'none'}],700,850,QUINT);
+    play($('.cta'),[{opacity:0,transform:'translateY('+px(12)+') scale(.975)'},{opacity:1,transform:'none'}],860,900,EXPO);
+    play($('.discover'),[{opacity:0,transform:'translateY('+px(6)+')'},{opacity:1,transform:'none'}],1040,700,QUINT);
+    play($('.discover svg'),[{transform:'translateY('+px(-5)+')'},{transform:'none'}],1120,820,EXPO); /* coda: points at the horizon */
+
+    /* COMPLETE — hand the page back to its authored CSS and stop everything */
+    Promise.all(anims.map(function(a){return a.finished})).then(function(){
+      root.classList.remove('intro');
+      anims.forEach(function(a){a.cancel()});
+      anims.length=0;
+      /* the masks briefly promote the backdrop to its own GPU layer; rebuild the render tree once
+         (same task, no frame painted in between) so the page rasterises exactly as the static design.
+         Skipped if the visitor already focused something, to never steal keyboard focus. */
+      requestAnimationFrame(function(){
+        var page=$('.page');
+        if(page&&!page.contains(document.activeElement)){
+          page.style.display='none'; void page.offsetHeight; page.removeAttribute('style');
+        }
+        root.setAttribute('data-intro','done');
+      });
+    });
+  }
+
+  /* start once the stage is ready: fonts (so lines mask correctly) and the static backdrop decoded */
+  var img=$('.field img');
+  var stage=Promise.all([
+    document.fonts?document.fonts.ready:Promise.resolve(),
+    img&&img.decode?img.decode().catch(function(){}):Promise.resolve()
+  ]);
+  Promise.race([stage,new Promise(function(r){setTimeout(r,900)})]).then(function(){requestAnimationFrame(run)});
+})();
+</script>
+</body>
+</html>
