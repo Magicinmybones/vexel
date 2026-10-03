@@ -2,6 +2,9 @@
 
 A responsive landing page for Vexel, built as a dependency-free static site.
 
+- Live site: https://vexel-ctv.pages.dev
+- Source: https://github.com/Magicinmybones/vexel
+
 ## Structure
 
 - `public/index.html` — deployable page
@@ -20,4 +23,3 @@ npm run dev
 ```bash
 npm run deploy
 ```
-
